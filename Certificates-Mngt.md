@@ -149,7 +149,7 @@ Il fait également appel à un autre Runbook pour l'installation du certificat d
 ### 6.1.2. L'appel via Terraform
 L'appel du Runbook Create-LetsEncrypt se fait par l'intermédiaire d'un **WebHook**.
 La création du WebHook ainsi que son appel ont été codé dans un module terraform :
-https://github.com/ppaven/prj-certif-modules-create-certif (Bientôt disponible)
+https://github.com/ppaven/prj-certif-modules-create-certif
  
 ## 6.2. Runbook Renew-LetsEncrypt
 Ce Runbook permet de renouveler les certificats LetsEncrypt.
