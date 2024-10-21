@@ -57,7 +57,10 @@
   - [6.2. Runbook Renew-LetsEncrypt](#62-runbook-renew-letsencrypt)
     - [6.2.1. Les Paramètres](#621-les-paramètres)
 - [7. Installation des certificats dans les Ressources](#7-installation-des-certificats-dans-les-ressources)
-- [8. Le POC (Mini Projet)](#8-le-poc-mini-projet)
+- [8. Les POC (Mini Projet)](#8-les-poc-mini-projet)
+  - [8.1. POC AppService](#81-poc-appservice)
+  - [8.2. POC VMLinux](#82-poc-vmlinux)
+- [9. Liens vers le code](#9-liens-vers-le-code)
   
 
 # 1. Introduction
@@ -112,9 +115,9 @@ Ci-dessous le tableau répertoriant les tags et leur presence par type de ressou
 | dns_zone | Nom de la zone DNS (ex app.azcloud-consulting.com) |<center>X |<center>X |<center>X |<center>X |
 | subscription | Souscription des ressources concernées par le certificat |<center>X |<center>X |<center>X |<center>X |
 | resource_group | Resource-group des ressources concernées par le certificat |<center>X |<center>X |<center>X |<center>X |
-| resource_type | Type de ressource (AppService, API, WAF, VM, VMSS) |<center>AppService |<center>API |<center>WAF |<center>VM,VMSS |
+| resource_type | Type de ressource (AppService, API, AGW, VM, VMSS) |<center>AppService |<center>API |<center>AGW |<center>VM,VMSS |
 | resources | Liste des ressources concernées par le certificat (ex : vm01,vm02) |<center>X |<center>X |<center>X |<center>X |
-| endpoint_listener | Endpoint (API) : Nom du Enpoint sur lequel sera attaché le certificat (Proxy,Portal).<br>Listener (WAF) : Nom du listerner sur lequel sera attaché le certificat | |<center>X |<center>X | |
+| endpoint_listener | Endpoint (API) : Nom du Enpoint sur lequel sera attaché le certificat (Proxy,Portal).<br>Listener (AGW) : Nom du listerner sur lequel sera attaché le certificat | |<center>X |<center>X | |
 | keyvault | Keyvault associé aux ressources concernées par le certificat |<center>X |<center>X |<center>X |<center>X |
 
 
@@ -136,7 +139,7 @@ Il fait également appel à un autre Runbook pour l'installation du certificat d
 | 4 | DNSzone  |  | <center>X |<center>X |<center>X |<center>X |
 | 5 | SubscriptionName  |  | <center>X |<center>X |<center>X |<center>X |
 | 6 | ResourceGroup  |  | <center>X |<center>X |<center>X |<center>X |
-| 7 | ResourceType  |  | <center>AppService |<center>API |<center>WAF |<center>VM ou VMSS |
+| 7 | ResourceType  |  | <center>AppService |<center>API |<center>AGW |<center>VM ou VMSS |
 | 8 | Resources  |  | <center>X |<center>X |<center>X |<center>X |
 | 9 | EndPoint_Listener  |  |  |<center>X<br>EndPoint : "Portal" ou "Proxy" |<center>X<br>NomListener | |
 | 10 | KeyVault  |  | <center>(X) |<center>X<br>NomKeyvault/NomCertif |<center>X |<center>(X) |
@@ -163,11 +166,11 @@ Il fait également appel à un autre Runbook pour l'installation du certificat d
 | OnlyCheck (True/False) | Si True : Affiche seulement la liste des certificats à renouveler (sans les renouveler).<br>False par default |
 
 # 7. Installation des certificats dans les Ressources 
-Consulter : [Upload Certificate](Coming-soon.md)
+Consulter : [Upload des certificats](https://github.com/ppaven/prj-certif-doc/blob/master/Certificates-MUpload.md)
 
-# 8. Le POC (Mini Projet)
+# 8. Les POC (Mini Projet)
 
-Pour tester les différents modules de gestions des certificats dans Azure, il a été créé un mini projet dont la structure des répertoires est la suivante : 
+Pour tester les différents modules de gestions des certificats dans Azure, il a été créé des mini projets (POC) dont la structure des répertoires est la suivante : 
 ```
 .
 ├── doc
@@ -195,19 +198,71 @@ Pour tester les différents modules de gestions des certificats dans Azure, il a
 │   │   ├── outputs.tf
 │   │   └── vars.tf
 │   ├── upload-certif
-|   |
+│   │   ├── README.md
+│   │   ├── main.tf
+│   │   ├── upload_certif.tf
+│   │   └── vars.tf
 │   └── uploadcert-infra
-|
-└── poc
+│       ├── README.md
+│       ├── automation_account.tf
+│       ├── keyvault.tf
+│       ├── main.tf
+│       ├── runbooks
+│       │   └── UploadCertToResources.tpl.ps1
+│       ├── runbooks.tf
+│       ├── scripts
+│       │   └── update_cert.sh
+│       └── vars.tf
+├── poc
+    ├── 1-appservice
+    │   ├── README.md
+    │   ├── app_service.tf
+    │   ├── app_service_plan.tf
+    │   ├── cert_infra.tf
+    │   ├── create_certif_appservice.tf
+    │   ├── dns.tf
+    │   ├── main.tf
+    │   ├── scripts
+    │   │   └── export_ovh_dns.py
+    │   ├── tags.tf
+    │   ├── terraform.tf
+    │   ├── terraform.tfvars
+    │   ├── uploadcert_infra.tf
+    │   └── vars.tf
+    └── 2-vmlinux
+        ├── README.md
+        ├── avm_kv.tf
+        ├── avm_nsg.tf
+        ├── avm_vm.tf
+        ├── create_certif_webvm.tf
+        ├── dns.tf
+        ├── main.tf
+        ├── tags.tf
+        ├── terraform.tf
+        ├── terraform.tfvars
+        ├── upload_certif_webvm.tf
+        ├── vars.tf
+        └── vnet.tf
 
 ```
+## 8.1. POC AppService 
+
+## 8.2. POC VMLinux 
+
+# 9. Liens vers le code
 - [modules/certif-mgmt-infra](https://github.com/ppaven/prj-certif-modules-certif-mgmt-infra) : Module de création de l'infra de gestion des certificats
 - [modules/create-certif](https://github.com/ppaven/prj-certif-modules-create-certif) : Module d'appel au Runbook de création d'un certificat (via WebHook)
-- [modules/uploadcert-infra](Coming-soon.md) : Module de création du Runbook d'Upload des certificats dans les ressources
-- [modules/upload-certif](Coming-soon.md) : Module d'appel au Runbook d'Upload des certificats
-- [poc](Coming-soon.md) : 
+- [modules/uploadcert-infra](https://github.com/ppaven/prj-certif-modules-uploadcert-infra) : Module de création du Runbook d'Upload des certificats dans les ressources
+- [modules/upload-certif](https://github.com/ppaven/prj-certif-modules-upload-certif) : Module d'appel au Runbook d'Upload des certificats
+- [modules/tags](https://github.com/ppaven/prj-certif-modules-tags) : Module de création des tags
+- [poc/AppService](https://github.com/ppaven/prj-certif-poc-appservice): 
   - Appel aux modules pour la création de l'infra
   - Création d'un AppService de test
-  - Appel aux module de création du certificats + Upload dans l'AppService
-- [modules/tags](https://github.com/ppaven/prj-certif-modules-tags) : Module de création des tags
+  - Appel aux modules de création du certificats + Upload dans l'AppService
+- [poc/VMLinux](https://github.com/ppaven/prj-certif-poc-vmlinux): 
+  - Utilisation des `Azure Verified Modules` pour la création 
+    - d'une VM
+    - d'un keyvault local
+    - d'un NSG
+  - Appel aux modules de création du certificats + Upload dans l'AppService
 
