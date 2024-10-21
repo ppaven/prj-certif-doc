@@ -264,5 +264,5 @@ Pour tester les différents modules de gestions des certificats dans Azure, il a
     - d'une VM
     - d'un keyvault local
     - d'un NSG
-  - Appel aux modules de création du certificats + Upload dans l'AppService
+  - Appel aux modules de création du certificats + Upload dans la VM
 
