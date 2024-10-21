@@ -82,7 +82,7 @@ Plusieurs types de ressources sont concernées :
   - API Management
   - VM et VM Scaleset (Linux)
 
-Dans la plupart des cas, le certificat généré puis stocké dans le Keyvault centralisé, est copié dans un Keyvault local aux ressources pour être référencé par celles-ci.
+Dans la plupart des cas, le certificat généré puis stocké dans le Keyvault centralisé est copié dans un Keyvault local, et les ressources se réfèrent à ce certificat dans le keyvault local.
 
 ## 3.1. Runbook UploadCertToResouces
 Ce Runbook permet d'installer un certificat LetsEncrypt, stocké dans le Keyvault centralisé, dans une des ressources Azure précédemment cité.  

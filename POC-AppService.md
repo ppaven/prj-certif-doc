@@ -71,8 +71,6 @@ Dans l'AppService (WebApp), Il a été déployé le code suivant https://github.
 
 ## 2.1. Installation du serveur WEB
 
-Dans la plupart des cas, le certificat généré puis stocké dans le Keyvault centralisé est copié dans un Keyvault local, et les ressources se référencent à ce certificat dans le keyvault local. 
-
 Ce site web répond correctement en http : 
 <img src="img/WebApp1.jpg" alt="WebApp1" width="800"/>
 

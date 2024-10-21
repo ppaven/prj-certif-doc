@@ -78,7 +78,6 @@ Les [Azure Verified Modules](https://azure.github.io/Azure-Verified-Modules/) on
 
 Le code terraform est ici :  [poc/VMLinux](https://github.com/ppaven/prj-certif-poc-vmlinux)
 
-Dans la plupart des cas, le certificat généré puis stocké dans le Keyvault centralisé est copié dans un Keyvault local, et les ressources se référencent à ce certificat dans le keyvault local. 
 
 ## 3.1. Installation du serveur WEB (nginx)
 ```
