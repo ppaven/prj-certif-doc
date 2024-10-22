@@ -121,9 +121,8 @@ Dans ce cas le paramètre "Resources" à indiquer à la création du certificat 
 ## 3.5. Application Gateway
 Pour l'installation d'un certificat dans une Application Gateway, le nom du Listener (paramètre EndPoint_Listener) est nécessaire cf. [§3.1.1.](#311-les-paramètres)
 
-Il n'est pas possible de créer une Application Gateway sans avoir de certificat, cette contrainte nous impose donc de passer par un
-keyvault local.
-Le séquencement de création sera donc le suivant, dans un terraorm :
+Il n'est pas possible de créer une Application Gateway sans avoir de certificat, cette contrainte nous impose d'avoir
+le séquencement de création suivant :
   1. Création d'un Keyvault Local
   2. Création d'un certificat autosigné dans le Keyvault Local
   3. Création de l'App-Gateway avec utilisation du certificat autosigné
@@ -131,7 +130,7 @@ Le séquencement de création sera donc le suivant, dans un terraorm :
   5. Lors du renouvellement, le Runbook mets à jour à la fois le keyvault local et l'App Gateway.
 
 ## 3.6. API Management
-Pour l'API-Management, il a été choisi de mettre à jour les certificats par l'intermédiaire d'un autre keyvault propre au projet.
+Pour l'API-Management, nous gardons le même principe de mise à jour des certificats par l'intermédiaire d'un autre keyvault propre au projet.
 
 # 4. Les POC
 Pour tester les différents modules de gestions des certificats dans Azure, il a été créé des mini projets (POC) dont la structure des répertoires est la suivante : 
