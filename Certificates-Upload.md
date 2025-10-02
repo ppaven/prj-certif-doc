@@ -80,7 +80,7 @@ Plusieurs types de ressources sont concernées :
   - AppService (WebApp)
   - Application Gateway
   - API Management
-  - VM et VM Scaleset (Linux)
+  - Virtual Machine et VM Scaleset (Linux)
 
 Dans la plupart des cas, le certificat généré puis stocké dans le Keyvault centralisé est copié dans un Keyvault local, et les ressources se réfèrent à ce certificat dans le keyvault local.
 
